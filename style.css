@@ -1,0 +1,148 @@
+/* Reset gaya dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Bagian Header dan Navigasi */
+header {
+    background-color: #a82020; /* Merah gelap */
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    padding: 15px;
+    font-size: 24px;
+}
+
+nav {
+    background-color: #d94343; /* Merah lebih terang */
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Layout Kontainer Utama */
+.container {
+    display: flex;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Bagian Formulir (Kiri) */
+.content {
+    flex: 7; /* Mengambil porsi 70% ruang */
+    padding: 30px;
+}
+
+.content h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Gaya Input Formulir */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fcfcfc;
+}
+
+/* Gaya untuk Radio dan Checkbox (Sejajar ke bawah) */
+.form-group-inline {
+    margin-bottom: 15px;
+}
+
+.form-group-inline > label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.options label {
+    display: block; /* Membuat opsi turun ke bawah */
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Tombol Kirim */
+.btn-submit {
+    width: 100%;
+    background-color: #3498db; /* Biru terang */
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #2980b9; /* Biru lebih gelap saat disentuh */
+}
+
+/* Bagian Sidebar (Kanan) */
+.sidebar {
+    flex: 3; /* Mengambil porsi 30% ruang */
+    background-color: #b8bec2; /* Abu-abu kebiruan */
+    padding: 30px;
+    border-left: 1px solid #ddd;
+}
+
+.sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.sidebar p {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+}
