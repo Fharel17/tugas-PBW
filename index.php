@@ -1,62 +1,83 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['login_Un51k4'])) {
+    header("Location: login.php?message=" . urlencode("Mengakses fitur harus login dulu bro."));
+    exit;
+}
+// ... sisa kode include dan HTML
+include 'proses_index.php'; 
+?>
+
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praktikum PHP Dinamis</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; color: #333; }
-        .navigasi { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ccc; }
-        .navigasi a { 
-            text-decoration: none; padding: 8px 15px; 
-            background-color: #007BFF; color: white; 
-            border-radius: 4px; margin-right: 10px; display: inline-block; margin-bottom: 5px;
-        }
-        .navigasi a:hover { background-color: #0056b3; }
-        .konten { padding: 20px; border: 1px dashed #999; border-radius: 5px; background: #f9f9f9; }
-        .form-group { margin-bottom: 15px; }
-        input[type="number"], input[type="text"] { padding: 8px; width: 200px; }
-        button { padding: 8px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #218838; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Daftar Buku</title>
 </head>
 <body>
 
-    <h2>Tugas Latihan Praktikum (Dinamis)</h2>
-    
-    <div class="navigasi">
-        <?php
-        // Membuat menu navigasi secara dinamis menggunakan array
-        $daftar_menu = [
-            'soal1' => 'Soal 1 (Switch)',
-            'soal2' => 'Soal 2 (For)',
-            'soal3' => 'Soal 3 (Array)',
-            'soal4' => 'Soal 4 (Ternary)'
-        ];
+<?php include 'nav.php'; ?>
 
-        foreach ($daftar_menu as $link => $judul) {
-            echo "<a href='?halaman=$link'>$judul</a>";
-        }
-        ?>
-    </div>
+<div class="container mt-4">
+    <h2>Daftar Buku</h2>
 
-    <div class="konten">
-        <?php
-        if (isset($_GET['halaman'])) {
-            $halaman = $_GET['halaman'];
-            $file_tujuan = $halaman . ".php";
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-5">
+            <label for="judul" class="form-label">Cari Berdasarkan Judul</label>
+            <input type="text" class="form-control" id="judul" name="judul"
+                placeholder="Masukkan judul buku"
+                value="<?php echo htmlspecialchars($search_judul ?? ''); ?>">
+        </div>
 
-            // Validasi kunci array agar aman
-            if (array_key_exists($halaman, $daftar_menu) && file_exists($file_tujuan)) {
-                include $file_tujuan;
-            } else {
-                echo "<p style='color:red;'>Halaman tidak ditemukan!</p>";
-            }
-        } else {
-            echo "<p>Silakan pilih menu di atas untuk mulai mencoba program.</p>";
-        }
-        ?>
-    </div>
+        <div class="col-md-3">
+            <label for="tahun_terbit" class="form-label">Cari Berdasarkan Tahun Terbit</label>
+            <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit"
+                placeholder="Masukkan tahun terbit"
+                value="<?php echo htmlspecialchars($search_tahun ?? ''); ?>">
+        </div>
+
+        <div class="col-md-2 align-self-end">
+            <button type="submit" class="btn btn-primary">Cari</button>
+        </div>
+
+        <div class="col-md-2 align-self-end">
+            <a href="index.php" class="btn btn-secondary">Reset</a>
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Judul</th>
+                <th>Penulis</th>
+                <th>Tahun Terbit</th>
+                <th>Harga</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $row['ID']; ?></td>
+                    <td><?php echo htmlspecialchars($row['Judul']); ?></td>
+                    <td><?php echo htmlspecialchars($row['Penulis']); ?></td>
+                    <td><?php echo $row['Tahun_Terbit']; ?></td>
+                    <td>Rp<?php echo number_format($row['Harga'], 2); ?></td>
+                    <td>
+                        <a href="form_edit.php?id=<?php echo $row['ID']; ?>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="proses_hapus.php?id=<?php echo $row['ID']; ?>" 
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
